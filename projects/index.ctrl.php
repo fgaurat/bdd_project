@@ -6,4 +6,3 @@
     $projects = $repo->findAll();
 
 
-    var_dump($projects);
