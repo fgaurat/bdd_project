@@ -3,6 +3,7 @@
 
 
     $repo = new ProjectRepository();
-    $projects = $repo->findAll();
+    $projects = $repo->findAllWithDev();
+
 
 

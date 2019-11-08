@@ -9,12 +9,18 @@
         <th>#</th>
         <th>name</th>
         <th>devs</th>
+        <th>show devs</th>
         <th>actions</th>
     </tr>
 <?php foreach($projects as $p):?>
 <tr>
     <td><?=$p->getId()?></td>
     <td><?=$p->getName()?></td>
+    <td>
+            <?=count($p->getDevelopers())?>
+            <?=implode(',',$p->getDevelopers())?>
+
+    </td>
     <td>
         <a href="/devs/index.php?project_id=<?=$p->getId()?>">devs</a>
     </td>

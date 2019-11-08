@@ -1,6 +1,7 @@
 <?php
     include_once('../includes/const.php');
     include_once('../entities/Project.class.php');
+    include_once('../entities/Developer.class.php');
     class ProjectRepository
     {
 
@@ -15,15 +16,23 @@
         }
 
 
-        public function findAll()
+        public function findAllWithDev()
         {
             
             $query = 'SELECT id,name FROM projects';
             $resultSet = $this->pdo->query($query);
             
             $list = [];
-            foreach($resultSet as $row){
-                $p = new Project($row['name'],[],$row['id']);
+            foreach($resultSet as $project){
+                $queryDev = 'SELECT id,name,firstname FROM developers WHERE project_id= '.$project['id'];
+                $resultSetDev = $this->pdo->query($queryDev);
+                $devs = [];
+                foreach($resultSetDev as $dev){
+                    $d = new Developer($dev['name'],$dev['firstname'],null,$dev['id']);
+                    $devs[]=$d;
+                }
+                
+                $p = new Project($project['name'],$devs,$project['id']);
                 $list[]=$p;
             }
             return $list;
